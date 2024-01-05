@@ -1,0 +1,6 @@
+SELECT
+(SELECT count(*)  from (select distinct part_number as part_number_dist, price as price_dist, manufacturer as manufacturer_dist from task_1_result) as task_1_result_dist INNER JOIN sample_supplier
+ON task_1_result_dist.part_number_dist=sample_supplier.part_number and task_1_result_dist.manufacturer_dist=sample_supplier.manufacturer and CAST( REPLACE(task_1_result_dist.price_dist, ',', '.') AS double) > sample_supplier.price LIMIT 0,1000000) as number_of_cheaper_elements_in_sample_supplier,
+
+(SELECT count(*)  from (select distinct part_number as part_number_dist, price as price_dist, manufacturer as manufacturer_dist from task_1_result) as task_1_result_dist INNER JOIN sample_supplier
+ON task_1_result_dist.part_number_dist=sample_supplier.part_number and task_1_result_dist.manufacturer_dist=sample_supplier.manufacturer and CAST( REPLACE(task_1_result_dist.price_dist, ',', '.') AS double) < sample_supplier.price LIMIT 0,1000000) as number_of_cheaper_elements_in_task_1_supplier
